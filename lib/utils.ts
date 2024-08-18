@@ -9,3 +9,5 @@ export function cn(...inputs: ClassValue[]) {
 export function formatString(input: string) {
   return input.replace(/([A-Z])/g, " $1").trim();
 }
+
+

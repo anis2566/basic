@@ -26,6 +26,9 @@ import {
   MessageSquare,
   Bell,
   FileCheck,
+  DollarSign,
+  HandCoins,
+  PlusCircle,
 } from "lucide-react";
 
 type Submenu = {
@@ -66,6 +69,13 @@ export function getMenuList(pathname: string): Group[] {
       groupLabel: "Students Management",
       menus: [
         {
+          href: "/dashboard/admission",
+          label: "Admission",
+          active: pathname.includes("/dashboard/admission"),
+          icon: FileCheck,
+          submenus: [],
+        },
+        {
           href: "",
           label: "Student",
           active: pathname.includes("/dashboard/unit"),
@@ -88,47 +98,46 @@ export function getMenuList(pathname: string): Group[] {
       ],
     },
     {
-      groupLabel: "Client",
+      groupLabel: "Fee",
       menus: [
         {
-          href: "/dashboard/news",
-          label: "News",
-          active: pathname.includes("/dashboard/news"),
-          icon: MicVocal,
-          submenus: [
-            {
-              href: "/dashboard/news/create",
-              label: "Create",
-              active: pathname === "/dashboard/news/create",
-              icon: Pen,
-            },
-            {
-              href: "/dashboard/news",
-              label: "List",
-              active: pathname === "/dashboard/news",
-              icon: List,
-            },
-          ],
-        },
-        {
-          href: "/dashboard/gallery",
-          label: "Gallery",
-          active: pathname.includes("/dashboard/gallery"),
-          icon: GalleryVertical,
+          href: "/dashboard/fee/admission",
+          label: "Admission Fee",
+          active: pathname.includes("/dashboard/fee/admission"),
+          icon: DollarSign,
           submenus: [],
         },
         {
-          href: "/dashboard/message",
-          label: "Message",
-          active: pathname.includes("/dashboard/message"),
-          icon: MessageSquare,
+          href: "/dashboard/fee/monthly",
+          label: "Monthly Fee",
+          active: pathname.includes("/dashboard/fee/monthly"),
+          icon: DollarSign,
+          submenus: [],
+        },
+      ],
+    },
+    {
+      groupLabel: "Finance",
+      menus: [
+        {
+          href: "/dashboard/finance/new",
+          label: "New Payment",
+          active: pathname.includes("/dashboard/finance/new"),
+          icon: PlusCircle,
           submenus: [],
         },
         {
-          href: "/dashboard/notice",
-          label: "Notice",
-          active: pathname.includes("/dashboard/notice"),
-          icon: Bell,
+          href: "/dashboard/finance/admission",
+          label: "Admission",
+          active: pathname.includes("/dashboard/finance/admission"),
+          icon: HandCoins,
+          submenus: [],
+        },
+        {
+          href: "/dashboard/finance/monthly",
+          label: "Monthly",
+          active: pathname.includes("/dashboard/finance/monthly"),
+          icon: HandCoins,
           submenus: [],
         },
       ],

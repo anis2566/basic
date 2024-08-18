@@ -102,7 +102,7 @@ export function CollapseMenuButton({
           <Button
             key={index}
             variant={active ? "secondary" : "ghost"}
-            className="w-full justify-start h-10 mb-1 text-white"
+            className="w-full justify-start h-10 mb-1"
             asChild
           >
             <Link href={href}>

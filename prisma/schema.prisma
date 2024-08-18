@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -34,23 +28,167 @@ enum Shift {
   Night
 }
 
+enum Religion {
+  Islam
+  Hinduism
+  Christianity
+  Buddhism
+  Other
+}
+
+enum Group {
+  Science
+  Humanities
+  BusinessStudies
+}
+
+enum Nationality {
+  Bangladeshi
+  Foreigner
+}
+
+enum Gender {
+  Male
+  Female
+  Other
+}
+
+enum PaymentStatus {
+  Paid
+  Unpaid
+  NA
+}
+
+enum PaymentMethod {
+  Cash
+  MobileBanking
+}
+
+enum Month {
+  January
+  February
+  March
+  April
+  May
+  June
+  July
+  August
+  September
+  October
+  Novembewr
+  December
+}
+
 model Student {
   id            String          @id @default(cuid())
+  session       Int
   studentId     Int
   name          String
+  nameBangla    String
   fName         String
   mName         String
-  gender        String
-  class         Class
+  gender        Gender
+  dob           DateTime
+  nationality   Nationality
+  religion      Religion
+  imageUrl      String
+
   school        String
+  class         Class
   section       String?
   shift         Shift?
+  group         Group?
+  roll          Int
+
   fPhone        String
   mPhone        String
-  imageUrl      String
- 
+
+  presentHouseNo      String
+  presentMoholla      String
+  presentPost         String
+  presentThana        String
+  permanentVillage    String
+  permanentPost       String
+  permanentThana      String
+  permanentDistrict   String
+
+  admissionFee        Int
+  monthlyFee          Int
+
+  admissionPayment   AdmissionPayment?
+  payments           MonthlyPayment[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@unique([id])
+}
+
+
+model Counter {
+  id            String          @id @default(cuid())
+  class         Class
+  count         Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([id, class])
+}
+
+
+model AdmissionFee {
+  id            String          @id @default(cuid())
+  class         Class
+  amount         Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([id, class])
+}
+
+
+model MonthlyFee {
+  id            String          @id @default(cuid())
+  class         Class
+  amount         Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([id, class])
+}
+
+
+model AdmissionPayment {
+  id            String          @id @default(cuid())
+  amount        Int
+  method        PaymentMethod
+  status        PaymentStatus   @default(Unpaid)
+
+  studentId     String @unique
+  student       Student     @relation(fields: [studentId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([id, studentId])
+}
+
+
+model MonthlyPayment {
+  id            String          @id @default(cuid())
+  amount        Int
+  month         Month
+  method        PaymentMethod?
+  status        PaymentStatus   @default(Unpaid)
+
+  studentId     String
+  student       Student     @relation(fields: [studentId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([id, studentId, month])
 }
